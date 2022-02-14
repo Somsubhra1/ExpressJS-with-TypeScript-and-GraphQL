@@ -11,6 +11,7 @@ import {
   ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginLandingPageProductionDefault,
 } from "apollo-server/node_modules/apollo-server-core";
+import { connectToMongo } from "./utils/mongo";
 
 async function bootstrap() {
   // Build schema
@@ -54,6 +55,8 @@ async function bootstrap() {
   });
 
   // connect to db
+
+  connectToMongo();
 }
 
 bootstrap();
