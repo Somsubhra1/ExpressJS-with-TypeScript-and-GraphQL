@@ -1,5 +1,5 @@
 import { CreateProductInput, Product } from "./../schema/product.schema";
-import { Arg, Ctx, Mutation } from "type-graphql";
+import { Arg, Authorized, Ctx, Mutation } from "type-graphql";
 import ProductService from "../service/product.service";
 import Context from "../types/context";
 
@@ -8,6 +8,7 @@ export default class ProductResolver {
     this.productService = new ProductService();
   }
 
+  @Authorized()
   @Mutation(() => Product)
   createProduct(
     @Arg("input") input: CreateProductInput,
