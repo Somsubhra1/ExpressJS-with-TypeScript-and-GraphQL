@@ -1,4 +1,8 @@
-import { RegisterUserInput, LoginInput } from "./../schema/user.schema";
+import {
+  RegisterUserInput,
+  LoginInput,
+  AuthOutput,
+} from "./../schema/user.schema";
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../schema/user.schema";
 import UserService from "../service/user.service";
@@ -10,12 +14,12 @@ export default class UserResolver {
     this.userService = new UserService();
   }
 
-  @Mutation(() => User) // mutation means record updating
-  register(@Arg("input") input: RegisterUserInput) {
-    return this.userService.createUser(input);
+  @Mutation(() => AuthOutput) // mutation means record updating
+  register(@Arg("input") input: RegisterUserInput, @Ctx() context: Context) {
+    return this.userService.createUser(input, context);
   }
 
-  @Mutation(() => String) // returns JWT token
+  @Mutation(() => AuthOutput) // returns JWT token
   login(@Arg("input") input: LoginInput, @Ctx() context: Context) {
     return this.userService.login(input, context);
   }

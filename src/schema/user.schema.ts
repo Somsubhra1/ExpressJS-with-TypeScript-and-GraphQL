@@ -84,3 +84,18 @@ export class LoginInput {
   @Field(() => String)
   password: string;
 }
+
+@ObjectType()
+export class AuthOutput {
+  @Field(() => String) // this is graphql type
+  _id: string; // this is typescript data type
+
+  @Field(() => String)
+  name: string;
+
+  @Field(() => String)
+  email: string;
+
+  @Field(() => String)
+  token: string;
+}
