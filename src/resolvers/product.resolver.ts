@@ -1,5 +1,9 @@
-import { CreateProductInput, Product } from "./../schema/product.schema";
-import { Arg, Authorized, Ctx, Mutation } from "type-graphql";
+import {
+  CreateProductInput,
+  GetProductInput,
+  Product,
+} from "./../schema/product.schema";
+import { Arg, Authorized, Ctx, Mutation, Query } from "type-graphql";
 import ProductService from "../service/product.service";
 import Context from "../types/context";
 
@@ -16,5 +20,15 @@ export default class ProductResolver {
   ) {
     const user = context.user!; // ! sign guarantees that user is not going to be null
     return this.productService.createProduct({ ...input, user: user?._id });
+  }
+
+  @Query(() => [Product])
+  products() {
+    return this.productService.findProducts();
+  }
+
+  @Query(() => Product)
+  product(@Arg("input") input: GetProductInput) {
+    return this.productService.findSingleProduct(input);
   }
 }
