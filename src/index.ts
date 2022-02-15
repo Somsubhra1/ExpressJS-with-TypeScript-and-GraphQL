@@ -31,7 +31,7 @@ async function bootstrap() {
     schema,
 
     context: (ctx) => {
-      console.log(ctx);
+      // console.log(ctx);
       return ctx;
     },
     plugins: [
