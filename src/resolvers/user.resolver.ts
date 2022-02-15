@@ -21,11 +21,9 @@ export default class UserResolver {
   }
 
   @Query(() => User) // query means any record fetching
-  me() {
-    return {
-      _id: "123",
-      name: "a@a.com",
-      email: "a",
-    };
+  me(@Ctx() context: Context) {
+    // console.log(context);
+
+    return context.user;
   }
 }

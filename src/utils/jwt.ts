@@ -24,6 +24,7 @@ export function verifyJwt<T>(token: string): T | null {
 
     return decoded;
   } catch (e) {
+    console.log("error", e);
     return null;
   }
 }

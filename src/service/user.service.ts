@@ -30,7 +30,7 @@ class UserService {
     // sign a jwt token
     const token = signJwt(user);
     // set cookie for jwt
-    context.res.cookie("accessToken", {
+    context.res.cookie("accessToken", token, {
       maxAge: 3.154e10, // 1 year
       httpOnly: true,
       domain: "localhost",

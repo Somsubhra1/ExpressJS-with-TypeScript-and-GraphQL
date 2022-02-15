@@ -12,6 +12,9 @@ import {
   ApolloServerPluginLandingPageProductionDefault,
 } from "apollo-server/node_modules/apollo-server-core";
 import { connectToMongo } from "./utils/mongo";
+import { verifyJwt } from "./utils/jwt";
+import { User } from "./schema/user.schema";
+import Context from "./types/context";
 
 async function bootstrap() {
   // Build schema
@@ -30,9 +33,17 @@ async function bootstrap() {
   const server = new ApolloServer({
     schema,
 
-    context: (ctx) => {
+    context: (ctx: Context) => {
       // console.log(ctx);
-      return ctx;
+
+      const context = ctx;
+
+      if (ctx.req.cookies.accessToken) {
+        const user = verifyJwt<User>(ctx.req.cookies.accessToken);
+
+        context.user = user;
+      }
+      return context;
     },
     plugins: [
       process.env.NODE_ENV === "production"
