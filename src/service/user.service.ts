@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
 import { ApolloError } from "apollo-server-express";
-import { CreateUserInput, LoginInput, UserModel } from "../schema/user.schema";
+import { RegisterUserInput, LoginInput, UserModel } from "../schema/user.schema";
 import Context from "../types/context";
 import { signJwt } from "../utils/jwt";
 
 class UserService {
-  async createUser(input: CreateUserInput) {
+  async createUser(input: RegisterUserInput) {
     // call user model to create user
 
     return UserModel.create(input);

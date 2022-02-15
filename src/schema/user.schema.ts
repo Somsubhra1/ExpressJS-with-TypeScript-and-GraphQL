@@ -57,7 +57,7 @@ export class User {
 export const UserModel = getModelForClass<typeof User, QueryHelpers>(User); // automatically generates model from class along with the custom method
 
 @InputType() // inputtype should be different than object type. graphql recommends it
-export class CreateUserInput {
+export class RegisterUserInput {
   @Field(() => String)
   name: string;
 

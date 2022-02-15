@@ -1,4 +1,4 @@
-import { CreateUserInput, LoginInput } from "./../schema/user.schema";
+import { RegisterUserInput, LoginInput } from "./../schema/user.schema";
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../schema/user.schema";
 import UserService from "../service/user.service";
@@ -11,7 +11,7 @@ export default class UserResolver {
   }
 
   @Mutation(() => User) // mutation means record updating
-  createUser(@Arg("input") input: CreateUserInput) {
+  register(@Arg("input") input: RegisterUserInput) {
     return this.userService.createUser(input);
   }
 
@@ -21,7 +21,7 @@ export default class UserResolver {
   }
 
   @Query(() => User, { nullable: true }) // query means any record fetching
-  me(@Ctx() context: Context) {
+  profile(@Ctx() context: Context) {
     // console.log(context);
 
     return context.user;
