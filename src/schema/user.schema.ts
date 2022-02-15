@@ -1,7 +1,27 @@
-import { getModelForClass, prop, pre } from "@typegoose/typegoose";
+import {
+  getModelForClass,
+  prop,
+  pre,
+  ReturnModelType,
+  QueryMethod,
+  index,
+} from "@typegoose/typegoose";
 import { IsEmail, MaxLength, MinLength } from "class-validator";
 import { Field, InputType, ObjectType } from "type-graphql";
 import bcrypt from "bcrypt";
+import { AsQueryMethod } from "@typegoose/typegoose/lib/types";
+
+// custom db method
+function findByEmail(
+  this: ReturnModelType<typeof User, QueryHelpers>,
+  email: User["email"]
+) {
+  return this.findOne({ email });
+}
+
+interface QueryHelpers {
+  findByEmail: AsQueryMethod<typeof findByEmail>;
+}
 
 @pre<User>("save", async function () {
   // check if password is being modified
@@ -15,6 +35,8 @@ import bcrypt from "bcrypt";
 
   this.password = hash;
 })
+@QueryMethod(findByEmail) // invoking our custom method to the user schema
+@index({ email: 1 }) // adding index for email
 @ObjectType() // lets graphql know this is an object type for a resolver
 export class User {
   @Field(() => String) // this is graphql type
@@ -32,7 +54,7 @@ export class User {
   password: string;
 }
 
-export const UserModel = getModelForClass(User); // automatically generates model from class
+export const UserModel = getModelForClass<typeof User, QueryHelpers>(User); // automatically generates model from class along with the custom method
 
 @InputType() // inputtype should be different than object type. graphql recommends it
 export class CreateUserInput {
@@ -49,6 +71,16 @@ export class CreateUserInput {
   @MaxLength(50, {
     message: "Password must be maximum 50 characters long",
   })
+  @Field(() => String)
+  password: string;
+}
+
+@InputType()
+export class LoginInput {
+  @IsEmail()
+  @Field(() => String)
+  email: string;
+
   @Field(() => String)
   password: string;
 }
