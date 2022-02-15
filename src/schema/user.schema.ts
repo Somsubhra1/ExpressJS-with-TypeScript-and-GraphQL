@@ -52,6 +52,10 @@ export class User {
 
   @prop({ required: true }) // this is mongodb properties
   password: string;
+
+  @Field(() => String, { nullable: true })
+  @prop() // this is mongodb properties
+  userInfo: string;
 }
 
 export const UserModel = getModelForClass<typeof User, QueryHelpers>(User); // automatically generates model from class along with the custom method
@@ -102,6 +106,9 @@ export class AuthOutput {
 
 @InputType()
 export class UpdateProfileInput {
-  @Field(() => String)
-  name: string;
+  @Field(() => String, { nullable: true })
+  name?: string;
+
+  @Field(() => String, { nullable: true })
+  userInfo?: string;
 }
