@@ -2,8 +2,9 @@ import {
   RegisterUserInput,
   LoginInput,
   AuthOutput,
+  UpdateProfileInput,
 } from "./../schema/user.schema";
-import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../schema/user.schema";
 import UserService from "../service/user.service";
 import Context from "../types/context";
@@ -29,6 +30,16 @@ export default class UserResolver {
     // console.log(context);
 
     return context.user;
+  }
+
+  @Authorized()
+  @Mutation(() => User)
+  updateProfile(
+    @Arg("input") input: UpdateProfileInput,
+    @Ctx() context: Context
+  ) {
+    const user = context.user!;
+    return this.userService.updateProfile(input, user);
   }
 
   @Mutation(() => String)

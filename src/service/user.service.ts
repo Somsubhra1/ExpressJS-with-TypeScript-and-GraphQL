@@ -4,6 +4,8 @@ import {
   RegisterUserInput,
   LoginInput,
   UserModel,
+  UpdateProfileInput,
+  User,
 } from "../schema/user.schema";
 import Context from "../types/context";
 import { signJwt } from "../utils/jwt";
@@ -72,6 +74,14 @@ class UserService {
 
     // return jwt
     return { ...payload, token };
+  }
+
+  async updateProfile(input: UpdateProfileInput, user: User) {
+    return await UserModel.findOneAndUpdate({ email: user.email }, input, {
+      new: true,
+    })
+      .select({ password: 0 })
+      .lean();
   }
 }
 

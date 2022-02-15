@@ -99,3 +99,9 @@ export class AuthOutput {
   @Field(() => String)
   token: string;
 }
+
+@InputType()
+export class UpdateProfileInput {
+  @Field(() => String)
+  name: string;
+}
