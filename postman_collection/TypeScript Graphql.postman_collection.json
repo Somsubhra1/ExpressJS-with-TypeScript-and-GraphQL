@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "c629b488-135f-4a4d-bc06-de160acc9369",
+		"name": "TypeScript Graphql",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation register($input: RegisterUserInput!) {\n  register(input: $input) {\n      name\n      email\n      token\n  }\n}\n",
+						"variables": "{\n  \"input\": {\n    \"email\": \"c@h.com\",\n    \"name\": \"a\",\n    \"password\": \"123456\"\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation login($input: LoginInput!) {\n  login(input: $input) {\n      name\n      email\n      token\n  }\n}\n",
+						"variables": "{\n  \"input\": {\n    \"email\": \"a@d.com\",\n    \"password\": \"123456\"\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\n  profile {\n    _id\n    name\n    email\n    userInfo\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation updateProfile($input: UpdateProfileInput!) {\n  updateProfile(input: $input) {\n      name\n      email\n      userInfo\n  }\n}\n",
+						"variables": "{\n  \"input\": {\n    \"userInfo\": \"info7\",\n    \"name\": \"name1\"\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation logout {\n  logout\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation createProduct($input: CreateProductInput!) {\n  createProduct(input:$input) {\n    _id\n    name\n    productId\n    price\n    description\n  }\n}\n",
+						"variables": "{\n  \"input\":{\n    \"name\":\"Prod 2\",\n    \"description\":\"Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1Desc1\",\n    \"price\":100.23\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query product($input: GetProductInput!) {\n  product(input: $input) {\n    _id\n    name\n    price\n    description\n  }\n}\n",
+						"variables": "{\n    \"input\": {\n        \"productId\": \"product_7v347adbsx\"\n    }\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\n    products {\n    productId\n    name\n    price\n    description\n\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products for logged in user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\n    myProducts {\n    productId\n    name\n    price\n    description\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation updateProduct($input: UpdateProductInput!) {\n  updateProduct(input:$input) {\n    _id\n    name\n    productId\n    price\n    description\n  }\n}\n",
+						"variables": "{\n  \"input\":{\n    \"productId\": \"product_5ivuxa42lb\",\n    \"name\":\"Prod update test\",\n    \"price\": 200.86\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation deleteProduct($input: GetProductInput!) {\n  deleteProduct(input:$input) \n}\n",
+						"variables": "{\n  \"input\":{\n    \"productId\": \"product_7v347adbsx\"\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
