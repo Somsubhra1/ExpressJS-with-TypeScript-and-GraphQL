@@ -20,8 +20,8 @@ import authChecker from "./utils/authChecker";
 async function bootstrap() {
   // Build schema
   const schema = await buildSchema({
-    resolvers,
-    authChecker,
+    resolvers, // add all resolvers here
+    authChecker, // add authchecker here
   });
 
   // Init express

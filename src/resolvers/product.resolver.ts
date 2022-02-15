@@ -8,7 +8,7 @@ export default class ProductResolver {
     this.productService = new ProductService();
   }
 
-  @Authorized()
+  @Authorized() // only calls this mutation if the user is authorised
   @Mutation(() => Product)
   createProduct(
     @Arg("input") input: CreateProductInput,
