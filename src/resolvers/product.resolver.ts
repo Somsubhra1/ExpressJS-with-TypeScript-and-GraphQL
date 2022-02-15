@@ -2,6 +2,7 @@ import {
   CreateProductInput,
   GetProductInput,
   Product,
+  UpdateProductInput,
 } from "./../schema/product.schema";
 import { Arg, Authorized, Ctx, Mutation, Query } from "type-graphql";
 import ProductService from "../service/product.service";
@@ -30,5 +31,22 @@ export default class ProductResolver {
   @Query(() => Product)
   product(@Arg("input") input: GetProductInput) {
     return this.productService.findSingleProduct(input);
+  }
+
+  @Authorized()
+  @Mutation(() => Product)
+  updateProduct(
+    @Arg("input") input: UpdateProductInput,
+    @Ctx() context: Context
+  ) {
+    const user = context.user!;
+    return this.productService.updateProduct(input, user);
+  }
+
+  @Authorized()
+  @Mutation(() => String)
+  deleteProduct(@Arg("input") input: GetProductInput, @Ctx() context: Context) {
+    const user = context.user!;
+    return this.productService.deleteProduct(input, user);
   }
 }

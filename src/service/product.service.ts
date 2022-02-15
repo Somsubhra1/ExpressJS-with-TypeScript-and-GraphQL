@@ -2,6 +2,7 @@ import {
   CreateProductInput,
   GetProductInput,
   ProductModel,
+  UpdateProductInput,
 } from "../schema/product.schema";
 import { User } from "../schema/user.schema";
 
@@ -17,6 +18,26 @@ class ProductService {
 
   async findSingleProduct(input: GetProductInput) {
     return ProductModel.findOne(input).lean();
+  }
+
+  async updateProduct(input: UpdateProductInput, user: User) {
+    return ProductModel.findOneAndUpdate(
+      {
+        productId: input.productId,
+        user: user._id,
+      },
+      input,
+      { new: true }
+    );
+  }
+
+  async deleteProduct(input: GetProductInput, user: User) {
+    await ProductModel.deleteOne({
+      productId: input.productId,
+      user: user._id,
+    });
+
+    return "Successfully deleted";
   }
 }
 
