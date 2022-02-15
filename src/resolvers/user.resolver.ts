@@ -20,7 +20,7 @@ export default class UserResolver {
     return this.userService.login(input, context);
   }
 
-  @Query(() => User) // query means any record fetching
+  @Query(() => User, { nullable: true }) // query means any record fetching
   me(@Ctx() context: Context) {
     // console.log(context);
 
