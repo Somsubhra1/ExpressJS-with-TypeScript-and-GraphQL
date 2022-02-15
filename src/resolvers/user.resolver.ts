@@ -26,4 +26,11 @@ export default class UserResolver {
 
     return context.user;
   }
+
+  @Mutation(() => String)
+  logout(@Ctx() context: Context) {
+    context.req.cookies.accessToken = null;
+
+    return "Logged out";
+  }
 }
