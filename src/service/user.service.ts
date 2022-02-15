@@ -19,13 +19,14 @@ class UserService {
     if (!user) {
       throw new ApolloError(e);
     }
-    // validate the password
 
+    // validate the password
     const passwordIsValid = await bcrypt.compare(input.password, user.password);
 
     if (!passwordIsValid) {
       throw new ApolloError(e);
     }
+
     // sign a jwt token
     const token = signJwt(user);
     // set cookie for jwt
@@ -37,8 +38,8 @@ class UserService {
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
     });
-    // return jwt
 
+    // return jwt
     return token;
   }
 }
