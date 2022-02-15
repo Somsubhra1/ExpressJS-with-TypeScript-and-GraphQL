@@ -16,6 +16,11 @@ class ProductService {
     return ProductModel.find().lean();
   }
 
+  async findMyProducts(user: User) {
+    //   Pagination logic
+    return ProductModel.find({ user: user._id }).lean();
+  }
+
   async findSingleProduct(input: GetProductInput) {
     return ProductModel.findOne(input).lean();
   }
@@ -28,7 +33,7 @@ class ProductService {
       },
       input,
       { new: true }
-    );
+    ).lean();
   }
 
   async deleteProduct(input: GetProductInput, user: User) {

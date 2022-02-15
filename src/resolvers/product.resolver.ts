@@ -28,6 +28,13 @@ export default class ProductResolver {
     return this.productService.findProducts();
   }
 
+  @Authorized()
+  @Query(() => [Product])
+  myProducts(@Ctx() context: Context) {
+    const user = context.user!;
+    return this.productService.findMyProducts(user);
+  }
+
   @Query(() => Product)
   product(@Arg("input") input: GetProductInput) {
     return this.productService.findSingleProduct(input);
